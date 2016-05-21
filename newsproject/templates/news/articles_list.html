@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>News Aggregator</title>
+</head>
+<body>
+	<h2>News Aggregator App</h2>
+
+	<ul>
+		{% for article in articles %}
+			<li><a href="{{ article.url }}">{{ article.title }}</a></li>
+		{% endfor %}
+	</ul>
+</body>
+</html>
