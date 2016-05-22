@@ -3,19 +3,14 @@
 
 <div class="jumbotron">
   <div class="container">
-    <h1>Django News</h1>
-    <p>Your Latest and Greatest news articles from your feeds.</p>
+    <h1>News Feed</h1>
   </div>
 </div>
 
 <div class="container">
-  <p>
-    Place news content here.
-  </p>      
-
   <ul>
-    {% for article in articles %}
-      <li><a href="{{ article.url }}">{{ article.title }}</a></li>
+    {% for feed in feeds %}
+      <li><a href="{{ feed.url }}">{{ feed.title }}</a></li>
     {% endfor %}
   </ul>
 
