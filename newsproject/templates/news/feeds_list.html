@@ -8,6 +8,9 @@
 </div>
 
 <div class="container">
+  <a href="{% url 'feed_new' %}" class="btn btn-primary">New Feed</a>
+  <hr>
+
   <ul>
     {% for feed in feeds %}
       <li><a href="{{ feed.url }}">{{ feed.title }}</a></li>

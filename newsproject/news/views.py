@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Article, Feed
+from .forms import FeedForm
 
 # Create your views here.
 
@@ -21,7 +22,8 @@ def feeds_list(request):
 
 
 def feed_new(request):
+    form = FeedForm()
     context = {
-
+        'form': form
     }
     return render(request, 'news/new_feed.html', context)
