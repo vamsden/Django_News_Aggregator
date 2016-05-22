@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Article, Feed
 from .forms import FeedForm
 
@@ -22,7 +22,15 @@ def feeds_list(request):
 
 
 def feed_new(request):
-    form = FeedForm()
+    if request.method == "POST":
+        form = FeedForm(request.POST)
+        if form.is_valid():
+            feed = form.save(commit=False)
+            feed.title = "Title"
+            feed.save()
+            return redirect('news.views.feeds_list')
+    else:
+        form = FeedForm()
     context = {
         'form': form
     }
