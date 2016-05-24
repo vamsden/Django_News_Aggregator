@@ -1,4 +1,5 @@
 {% extends 'news/base.html' %}
+{% load staticfiles %}}
 {% block content %}
 
 <div class="jumbotron">
@@ -9,18 +10,27 @@
 </div>
 
 <div class="container">
-  <p>
-    Place news content here.
-  </p>      
-
-  <ul>
+  <div class="row">
+  
     {% for article in articles %}
-      <li><a href="{{ article.url }}">{{ article.title }}</a></li>
+    <div class="col-md-6">
+      <div class="col-md-12 article">
+      
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.description |safe|linebreaks|truncatewords:50 }}</p>
+        <p><a href="{{ entry.url }}" target="_blank" class="btn btn-primary">View Details</a></p>
+      
+      </div>
+    </div>
+    <br>
     {% endfor %}
-  </ul>
 
+  </div>
+</div>
+
+
+<div class="container">
   <hr>
-
   <footer>
     <p>&copy; 2015 Django News Aggregator</p>
   </footer>

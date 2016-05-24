@@ -30,26 +30,29 @@ def feed_new(request):
         if form.is_valid():
             feed = form.save(commit=False)
 
-            # Feed Parser function
-            feedData = feedparser.parse(feed.url)
+            # Checks for existing feed
+            existingFeed = Feed.objects.filter(url=feed.url)
+            if len(existingFeed) == 0:
+                # Feed Parser function
+                feedData = feedparser.parse(feed.url)
 
-            # Gets feed title
-            feed.title = feedData.feed.title
-            feed.save()
+                # Gets feed title
+                feed.title = feedData.feed.title
+                feed.save()
 
-            for entry in feedData.entries:
-                article = Article()
-                article.title = entry.title
-                article.url = entry.link
-                article.description = entry.description
+                for entry in feedData.entries:
+                    article = Article()
+                    article.title = entry.title
+                    article.url = entry.link
+                    article.description = entry.description
 
-                # Date formatting
-                d = datetime.datetime(*(entry.published_parsed[0:6]))
-                dateString = d.strftime('%Y-%m-%d %H:%M:%S')
+                    # Date formatting
+                    d = datetime.datetime(*(entry.published_parsed[0:6]))
+                    dateString = d.strftime('%Y-%m-%d %H:%M:%S')
 
-                article.publication_date = dateString
-                article.feed = feed
-                article.save()
+                    article.publication_date = dateString
+                    article.feed = feed
+                    article.save()
 
             # redirects to feed_list using redirect
             return redirect('news.views.feeds_list')
